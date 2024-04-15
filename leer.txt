@@ -1,0 +1,39 @@
+a) Utilizando solo información de sala.
+b) Utilizando información de sala, número de miembros y habitación 1. HECHO
+c) Utilizando información de sala, número de miembros, habitación 1, y tiempo total. HECHO
+d) Utilizando toda la información disponible de sala, número de miembros, tiempos, número de pistas y liderazgo. HECHO
+
+CAMBIAR NOMBRES VARIABLES.
+
+# Seleciona las variables categóricas para el modelo
+df = datos[,c("SA","VMB","VH1")]
+df
+
+#Variable final
+Y = df[,"SA"]
+#Variable que se utiliza para predecir
+X = df[,c("VH1","VMB")]
+
+m = naiveBayes(X,Y)
+
+# Extrae predicciones para evaluar el clasificador
+pred = predict(m, df[,c("VH1","VMB")])
+
+# Evaluar capacidad de prediccion del modelo
+real=df$SA
+nconjunta = table(pred, real) 
+nSA = table(df$SA)
+
+#Probabilidad de que acierte en la predcción de valoración positiva dado que el grupo ha tenido una valoración positiva.
+nconjunta["POSITIVA","POSITIVA"]/nSA["POSITIVA"]
+
+#Probabilidad de que acierte en la predcción de valoración positiva dado que el grupo ha tenido una valoración positiva.
+nconjunta["NEGATIVA","NEGATIVA"]/nSA["NEGATIVA"]
+
+#Probabilidad de que el grupo obtenga una valoración positiva dado que el clasificador predice que va a ser negativa.
+n= nconjunta["NEGATIVA", "NEGATIVA"] + nconjunta["NEGATIVA", "POSITIVA"]
+nconjunta["NEGATIVA","POSITIVA"]/n
+
+#Probabilidad de que el grupo obtenga una valoración positiva dado que el clasificador predice que va a ser positiva.
+n= nconjunta["POSITIVA", "POSITIVA"] + nconjunta["POSITIVA", "NEGATIVA"]
+nconjunta["POSITIVA","POSITIVA"]/n
