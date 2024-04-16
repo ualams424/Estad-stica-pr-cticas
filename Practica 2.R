@@ -17,22 +17,21 @@ datos["PE"] = ifelse(datos$PRUEBA_EXTRA=="SI", "`POSITIVA", "NEGATIVA" )
 library(e1071)
 
 #Utilizando solo información de sala.
-df_a = datos[,("SA")]
+df_a = datos[,c("SA","VP")]
 df_a
-Y_a = df_a
-X_a = df_a
+Y_a = df_a[,"VP"]
+X_a = df_a[,"SA"]
 m_a = naiveBayes(X_a,Y_a)
-m2 = naiveBayes(X2,Y2)
-pred_a = predict(m_a, df_a)
-real_a=df_a
+pred_a = predict(m_a, df_a[,"SA"])
+real_a=df_a$VP
 nconjunta_a = table(pred_a, real_a) 
-nSA_a = table(df_a)
+nVP_a = table(df_a$VP)
 
 #a)Probabilidad de que acierte en la predcción de valoración positiva dado que el grupo ha tenido una valoración positiva.
-nconjunta_a["POSITIVA","POSITIVA"]/nSA_a["POSITIVA"]
+nconjunta_a["POSITIVA","POSITIVA"]/nVP_a["POSITIVA"]
 
 #b)Probabilidad de que acierte en la predcción de valoración positiva dado que el grupo ha tenido una valoración positiva.
-nconjunta_a["NEGATIVA","NEGATIVA"]/nSA_a["NEGATIVA"]
+nconjunta_a["NEGATIVA","NEGATIVA"]/nVP_a["NEGATIVA"]
 
 #d)Probabilidad de que el grupo obtenga una valoración positiva dado que el clasificador predice que va a ser negativa.
 n_a= nconjunta_a["NEGATIVA", "NEGATIVA"] + nconjunta_a["NEGATIVA", "POSITIVA"]
@@ -44,29 +43,28 @@ nconjunta_a["POSITIVA","POSITIVA"]/n_a2
 
 
 # Seleciona las variables categóricas para el modelo
-df = datos[,c("SA","VMB","VH1")]
+df = datos[,c("SA","VMB","VH1","VP")]
 df
-
 #Variable final
-Y = df[,"SA"]
+Y = df[,"VP"]
 #Variable que se utiliza para predecir
-X = df[,c("VH1","VMB")]
+X = df[,c("VH1","VMB","SA")]
 
 m = naiveBayes(X,Y)
 
 # Extrae predicciones para evaluar el clasificador
-pred = predict(m, df[,c("VH1","VMB")])
+pred = predict(m, df[,c("VH1","VMB","SA")])
 
 # Evaluar capacidad de prediccion del modelo
-real=df$SA
+real=df$VP
 nconjunta = table(pred, real) 
-nSA = table(df$SA)
+nVP = table(df$VP)
 
 #a)Probabilidad de que acierte en la predicción de valoración positiva dado que el grupo ha tenido una valoración positiva.
-nconjunta["POSITIVA","POSITIVA"]/nSA["POSITIVA"]
+nconjunta["POSITIVA","POSITIVA"]/nVP["POSITIVA"]
 
 #b)Probabilidad de que acierte en la predicción de valoración negativa dado que el grupo ha tenido una valoración negativa.
-nconjunta["NEGATIVA","NEGATIVA"]/nSA["NEGATIVA"]
+nconjunta["NEGATIVA","NEGATIVA"]/nVP["NEGATIVA"]
 
 #d)Probabilidad de que el grupo obtenga una valoración positiva dado que el clasificador predice que va a ser negativa.
 n= nconjunta["NEGATIVA", "NEGATIVA"] + nconjunta["NEGATIVA", "POSITIVA"]
@@ -77,21 +75,21 @@ n_2= nconjunta["POSITIVA", "POSITIVA"] + nconjunta["POSITIVA", "NEGATIVA"]
 nconjunta["POSITIVA","POSITIVA"]/n_2
 
 #Utilizando información de sala, número de miembros, habitación 1, y tiempo total.
-df1 = datos[,c("SA","VMB","VH1","VT")]
+df1 = datos[,c("SA","VMB","VH1","VT","VP")]
 df1
-Y1 = df1[,"SA"]
-X1 = df1[,c("VH1","VMB","VT")]
+Y1 = df1[,"VP"]
+X1 = df1[,c("VH1","VMB","VT","SA")]
 m1 = naiveBayes(X1,Y1)
-pred1 = predict(m1, df1[,c("VH1","VMB","VT")])
-real1=df1$SA
+pred1 = predict(m1, df1[,c("VH1","VMB","VT","SA")])
+real1=df1$VP
 nconjunta1 = table(pred1, real1) 
-nSA1 = table(df1$SA)
+nVP1 = table(df1$VP)
 
 #a)Probabilidad de que acierte en la predcción de valoración positiva dado que el grupo ha tenido una valoración positiva.
-nconjunta1["POSITIVA","POSITIVA"]/nSA1["POSITIVA"]
+nconjunta1["POSITIVA","POSITIVA"]/nVP1["POSITIVA"]
 
 #b)Probabilidad de que acierte en la predcción de valoración positiva dado que el grupo ha tenido una valoración positiva.
-nconjunta1["NEGATIVA","NEGATIVA"]/nSA1["NEGATIVA"]
+nconjunta1["NEGATIVA","NEGATIVA"]/nVP1["NEGATIVA"]
 
 #d)Probabilidad de que el grupo obtenga una valoración positiva dado que el clasificador predice que va a ser negativa.
 n1= nconjunta1["NEGATIVA", "NEGATIVA"] + nconjunta1["NEGATIVA", "POSITIVA"]
@@ -103,21 +101,21 @@ nconjunta1["POSITIVA","POSITIVA"]/n1_2
 
 
 #Utilizando toda la información disponible de sala, número de miembros, tiempos, número de pistas y liderazgo
-df2 = datos[,c("SA","VMB","VH1","VT","VNP","LE")]
+df2 = datos[,c("SA","VMB","VH1","VT","VNP","LE","VP")]
 df2
-Y2 = df2[,"SA"]
-X2 = df2[,c("VH1","VMB","VT","VNP","LE")]
+Y2 = df2[,"VP"]
+X2 = df2[,c("VH1","VMB","VT","VNP","LE","SA")]
 m2 = naiveBayes(X2,Y2)
-pred2 = predict(m2, df2[,c("VH1","VMB","VT","VNP","LE")])
-real2=df2$SA
+pred2 = predict(m2, df2[,c("VH1","VMB","VT","VNP","LE","SA")])
+real2=df2$VP
 nconjunta2 = table(pred2, real2) 
-nSA2 = table(df2$SA)
+nVP2 = table(df2$VP)
 
 #a)Probabilidad de que acierte en la predcción de valoración positiva dado que el grupo ha tenido una valoración positiva.
-nconjunta2["POSITIVA","POSITIVA"]/nSA2["POSITIVA"]
+nconjunta2["POSITIVA","POSITIVA"]/nVP2["POSITIVA"]
 
 #b)Probabilidad de que acierte en la predcción de valoración positiva dado que el grupo ha tenido una valoración positiva.
-nconjunta2["NEGATIVA","NEGATIVA"]/nSA2["NEGATIVA"]
+nconjunta2["NEGATIVA","NEGATIVA"]/nVP2["NEGATIVA"]
 
 #d)Probabilidad de que el grupo obtenga una valoración positiva dado que el clasificador predice que va a ser negativa.
 n2= nconjunta2["NEGATIVA", "NEGATIVA"] + nconjunta2["NEGATIVA", "POSITIVA"]
