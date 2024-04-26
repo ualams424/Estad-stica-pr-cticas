@@ -42,8 +42,7 @@ nconjunta_a["NEGATIVA","NEGATIVA"]/nVP_a["NEGATIVA"]
 
 
 #c)Probabilidad de que el grupo obtenga una valoración positiva dado que el clasificador predice que va a ser positiva.
-n_a= nconjunta_a["POSITIVA", "POSITIVA"] + nconjunta_a["POSITIVA", "NEGATIVA"]
-nconjunta_a["POSITIVA","POSITIVA"]/n_a
+
 
 #d)Probabilidad de que el grupo obtenga una valoración positiva dado que el clasificador predice que va a ser negativa.
 n_a2= nconjunta_a["NEGATIVA", "NEGATIVA"] + nconjunta_a["NEGATIVA", "POSITIVA"]
