@@ -85,3 +85,24 @@ rechazar la hipótesis nula por lo que concluimos que son independientes"
 positiva solía estar en torno al 40 %. ¿Podemos confirmar en base a nuestros datos que
 el número de grupos con valoración positiva ha aumentado?"
 
+# Las hipótesis del contraste son:
+#
+# - H0: La valoracion final positiva es del 40%
+# - H1: La valoracion final positiva es mayor 40%
+#
+# nivel de significación alpha=0.05
+
+tabla_binomial = table(VP)
+exitos = 34
+total = 63
+porcentaje = 0.4
+b1 = binom.test(exitos, total, p = porcentaje)
+b1$p.value
+
+"Como el p-valor = 0.02830544 < 0.05 = alpha, con los datos disponibles se puede
+rechazar la hipótesis nula y afirmamos la hipótesis 1, por lo que concluimos que el porcentaje de valoración
+final positiva con los datos actuales es mayor al 40%"
+
+
+"3. Comprobar si hay diferencias entre el tiempo de realización de la habitación 1 y de la
+habitación 3."
