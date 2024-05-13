@@ -189,6 +189,15 @@ t_tiempo_total$p.value
 t_pistas <- t.test(pistas_A, pistas_B)
 t_pistas$p.value
 
+# Número de miembros de los grupos por sala
+miembros_A <- datos_A$MIEMBROS
+miembros_B <- datos_B$MIEMBROS
+
+# Test de comparación de medias para el número de miembros de los grupos
+t_miembros <- t.test(miembros_A, miembros_B)
+t_miembros$p.value
+
+
 #En el caso de Habitación 1, el valor de p es mayor que 0.05, lo que
 #sugiere que no hay una diferencia significativa en el tiempo de realización
 #entre las salas A y B para esta habitación.
