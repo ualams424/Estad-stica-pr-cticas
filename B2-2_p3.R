@@ -143,13 +143,66 @@ de la habitación 1 de media es menor al tiempo de la habitación 2"
 "4. Comprobar si hay diferencias entre las salas A y B en lo que respecta a:
 -Tiempo de realizaciÓn de cada una de las habitaciones (1, 2 y 3)."
 
+# Comprobar diferencias entre salas A y B en diferentes aspectos
 
+# Filtrar datos por sala A y B
+datos_A <- datos[datos$SALA == "A", ]
+datos_B <- datos[datos$SALA == "B", ]
 
-#-Tiempo total de realización del escape room.
+# Tiempo de realización de cada habitación por sala
+habitacion1_A <- datos_A$HABITACION1
+habitacion1_B <- datos_B$HABITACION1
 
-#-Número de pistas pedidas.
+habitacion2_A <- datos_A$HABITACION2
+habitacion2_B <- datos_B$HABITACION2
 
-#-Número de miembros de los grupos.
+habitacion3_A <- datos_A$HABITACION3
+habitacion3_B <- datos_B$HABITACION3
+
+# Tiempo total de realización por sala
+tiempo_total_A <- datos_A$TOTAL_SALA
+tiempo_total_B <- datos_B$TOTAL_SALA
+
+# Número de pistas pedidas por sala
+pistas_A <- datos_A$PISTAS
+pistas_B <- datos_B$PISTAS
+
+# Test de comparación de medias para cada aspecto
+
+# Habitación 1
+t_habitacion1 <- t.test(habitacion1_A, habitacion1_B)
+t_habitacion1$p.value
+
+# Habitación 2
+t_habitacion2 <- t.test(habitacion2_A, habitacion2_B)
+t_habitacion2$p.value
+
+# Habitación 3
+t_habitacion3 <- t.test(habitacion3_A, habitacion3_B)
+t_habitacion3$p.value
+
+# Tiempo total de realización
+t_tiempo_total <- t.test(tiempo_total_A, tiempo_total_B)
+t_tiempo_total$p.value
+
+# Número de pistas pedidas
+t_pistas <- t.test(pistas_A, pistas_B)
+t_pistas$p.value
+
+#En el caso de Habitación 1, el valor de p es mayor que 0.05, lo que
+#sugiere que no hay una diferencia significativa en el tiempo de realización
+#entre las salas A y B para esta habitación.
+#Para Habitación 2 y Habitación 3, los valores de p son extremadamente pequeños 
+#(cercanos a cero), lo que sugiere que hay diferencias significativas en el tiempo de 
+#realización entre las salas A y B para estas habitaciones.
+#Para el Tiempo total de realización y el Número de pistas pedidas, los valores de p
+#son mayores que 0.05, lo que sugiere que no hay diferencias significativas entre las 
+#salas A y B en estos aspectos.
+#Estos resultados sugieren que hay diferencias significativas en el tiempo de realización
+#entre las salas A y B para las Habitaciones 2 y 3, pero no para la Habitación 1, mientras
+#que no hay diferencias significativas en el tiempo total de realización ni en el número de
+#pistas pedidas entre las salas A y B.
+
 
 "5. Plantear una hipótesis en relación a los datos que pueda resolverse mediante un contraste,
 y hallar una resolución a la misma."
