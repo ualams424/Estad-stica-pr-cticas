@@ -123,10 +123,26 @@ t3$p.value
 rechazar la hipótesis nula y afirmamos la hipótesis 1, por lo que concluimos que los tiempos
 de ambas habitaciones son distintos"
 
-"PREGUNTAR A LA PROFE"
+"Hacemos otro test para la comparación de medias de dos distribuciones normales para muestras independientes"
+
+# Las hipótesis son:
+#
+# - H0: tiempo_habitación1 = tiempo_habitación3
+# - H1: tiempo_habitación1 > tiempo_habitación3
+#
+# nivel de significación alpha=0.05
+
+
+t3_2 = t.test(tiempo_habitacion1, tiempo_habitacion3, paired = FALSE)
+t3_2$p.value
+
+"Como el p-valor = 3.677649e-06 < 0.05 = alpha, con los datos disponibles se puede
+rechazar la hipótesis nula y afirmamos la hipótesis 1, por lo que concluimos que el tiempo
+de la habitación 1 de media es menor al tiempo de la habitación 2"
 
 "4. Comprobar si hay diferencias entre las salas A y B en lo que respecta a:
 -Tiempo de realizaciÓn de cada una de las habitaciones (1, 2 y 3)."
+
 
 
 #-Tiempo total de realización del escape room.
