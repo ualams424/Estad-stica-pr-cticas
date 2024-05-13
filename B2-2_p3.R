@@ -106,3 +106,34 @@ final positiva con los datos actuales es mayor al 40%"
 
 "3. Comprobar si hay diferencias entre el tiempo de realización de la habitación 1 y de la
 habitación 3."
+tiempo_habitacion1 = datos$HABITACION1
+tiempo_habitacion3 = datos$HABITACION3
+
+# Las hipótesis del contraste son:
+#
+# - H0: tiempo_habitación1 = tiempo_habitación3
+# - H1: tiempo_habitación1 != tiempo_habitación3
+#
+# nivel de significación alpha=0.05
+
+t3 = t.test(tiempo_habitacion1, tiempo_habitacion3, paired = FALSE)
+t3$p.value
+
+"Como el p-valor = 3.677649e-06 < 0.05 = alpha, con los datos disponibles se puede
+rechazar la hipótesis nula y afirmamos la hipótesis 1, por lo que concluimos que los tiempos
+de ambas habitaciones son distintos"
+
+"PREGUNTAR A LA PROFE"
+
+"4. Comprobar si hay diferencias entre las salas A y B en lo que respecta a:
+-Tiempo de realizaciÓn de cada una de las habitaciones (1, 2 y 3)."
+
+
+#-Tiempo total de realización del escape room.
+
+#-Número de pistas pedidas.
+
+#-Número de miembros de los grupos.
+
+"5. Plantear una hipótesis en relación a los datos que pueda resolverse mediante un contraste,
+y hallar una resolución a la misma."
