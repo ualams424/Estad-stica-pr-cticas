@@ -222,23 +222,11 @@ y hallar una resolución a la misma."
 #
 # nivel de significación alpha=0.05
 
-# Crear una tabla de contingencia para el número de líderes en Sala A y Sala B
-lideres_A <- table(datos_A$LIDERAZGO)
-lideres_B <- table(datos_B$LIDERAZGO)
+# Crear una tabla de para el número de líderes en Sala A y Sala B
+lideres <- table(LE, SA)
 
-# Crear una tabla de contingencia combinada
-tabla_lideres <- matrix(c(lideres_A["SI"], lideres_A["NO"], lideres_B["SI"], lideres_B["NO"]), 
-                        nrow = 2, byrow = TRUE,
-                        dimnames = list(c("Sala A", "Sala B"), c("Líder", "No Líder")))
-
-# Realizar el test de chi-cuadrado para la tabla de contingencia
-test_lideres <- chisq.test(tabla_lideres)
+# Realizar el test de chi-cuadrado para la tabla
+test_lideres <- chisq.test(lideres_A)
 test_lideres$p.value
 
-if (test_lideres$p.value < 0.05) {
-  conclusion_lideres <- "Con los datos disponibles se puede rechazar la hipótesis nula y afirmar la hipótesis alternativa, concluyendo que hay una diferencia significativa en el número de líderes entre la Sala A y la Sala B."
-} else {
-  conclusion_lideres <- "Con los datos disponibles no se puede rechazar la hipótesis nula, concluyendo que no hay una diferencia significativa en el número de líderes entre la Sala A y la Sala B."
-}
-
-conclusion_lideres
+"Como p.valor = 0.8534187 < 0.05 = alpha, no se puede rechazar la hipótesis nula, concluyendo que no hay una diferencia significativa en el número de líderes entre la Sala A y la Sala B."
