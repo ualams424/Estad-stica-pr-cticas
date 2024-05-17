@@ -141,7 +141,10 @@ rechazar la hipótesis nula y afirmamos la hipótesis 1, por lo que concluimos q
 de la habitación 1 de media es menor al tiempo de la habitación 2"
 
 "4. Comprobar si hay diferencias entre las salas A y B en lo que respecta a:
--Tiempo de realizaciÓn de cada una de las habitaciones (1, 2 y 3)."
+-Tiempo de realizaciÓn de cada una de las habitaciones (1, 2 y 3).
+-Tiempo total de realización del escape room.
+-Número de pistas pedidas.
+-Número de miembros de los grupos"
 
 # Comprobar diferencias entre salas A y B en diferentes aspectos
 
@@ -167,58 +170,100 @@ tiempo_total_B <- datos_B$TOTAL_SALA
 pistas_A <- datos_A$PISTAS
 pistas_B <- datos_B$PISTAS
 
+# Número de miembros de los grupos por sala
+miembros_A <- datos_A$MIEMBROS
+miembros_B <- datos_B$MIEMBROS
+
 # Test de comparación de medias para cada aspecto
 
 # Habitación 1
+
+# Las hipótesis son:
+#
+# - H0: t_habitaciónX_A = t_habitaciónX_B
+# - H1: t_habitaciónX_A != t_habitaciónX_B
+#
+#siendo X el nº de habitación 
+# nivel de significación alpha=0.05
+
 t_habitacion1 <- t.test(habitacion1_A, habitacion1_B)
 t_habitacion1$p.value
+
+"Como el p-valor = 0.6016074 > 0.05 = alpha, con los datos disponibles no se puede
+rechazar la hipótesis nula por lo que concluimos que no hay una diferencia significativa en el tiempo de realización
+entre las salas A y B para esta habitación"
 
 # Habitación 2
 t_habitacion2 <- t.test(habitacion2_A, habitacion2_B)
 t_habitacion2$p.value
 
+"Como el p-valor = 1.918342e-17 < 0.05 = alpha, con los datos disponibles se puede
+rechazar la hipótesis nula y afirmamos la hipótesis 1, por lo que concluimos que hay una diferencia significativa en el tiempo de realización
+entre las salas A y B para esta habitación"
+
 # Habitación 3
 t_habitacion3 <- t.test(habitacion3_A, habitacion3_B)
 t_habitacion3$p.value
 
+"Como el p-valor = 4.729024e-13 < 0.05 = alpha, con los datos disponibles se puede
+rechazar la hipótesis nula y afirmamos la hipótesis 1, por lo que concluimos que hay una diferencia significativa en el tiempo de realización
+entre las salas A y B para esta habitación"
+
 # Tiempo total de realización
+
+# Las hipótesis son:
+#
+# - H0: tiempo_total_A = tiempo_total_B
+# - H1: tiempo_total_A != tiempo_total_B
+#
+# nivel de significación alpha=0.05
+
 t_tiempo_total <- t.test(tiempo_total_A, tiempo_total_B)
 t_tiempo_total$p.value
 
+"Como el p-valor = 0.3381361 > 0.05 = alpha, con los datos disponibles no se puede
+rechazar la hipótesis nula por lo que concluimos que no hay una diferencia significativa en el tiempo de realización
+total entre las salas A y B"
+
 # Número de pistas pedidas
+
+# Las hipótesis son:
+#
+# - H0: pistas_A = pistas_B
+# - H1: pistas_A != pistas_B
+#
+# nivel de significación alpha=0.05
+
 t_pistas <- t.test(pistas_A, pistas_B)
 t_pistas$p.value
 
-# Número de miembros de los grupos por sala
-miembros_A <- datos_A$MIEMBROS
-miembros_B <- datos_B$MIEMBROS
+"Como el p-valor = 0.6058338 > 0.05 = alpha, con los datos disponibles no se puede
+rechazar la hipótesis nula por lo que concluimos que no hay una diferencia significativa en las
+pistas usadas entre las salas A y B"
 
-# Test de comparación de medias para el número de miembros de los grupos
+# Número de miembros de los grupos
+
+# Las hipótesis son:
+#
+# - H0: miembros_A = miembros_B
+# - H1: miembros_A != miembros_B
+#
+# nivel de significación alpha=0.05
+
 t_miembros <- t.test(miembros_A, miembros_B)
 t_miembros$p.value
 
-
-#En el caso de Habitación 1, el valor de p es mayor que 0.05, lo que
-#sugiere que no hay una diferencia significativa en el tiempo de realización
-#entre las salas A y B para esta habitación.
-#Para Habitación 2 y Habitación 3, los valores de p son extremadamente pequeños 
-#(cercanos a cero), lo que sugiere que hay diferencias significativas en el tiempo de 
-#realización entre las salas A y B para estas habitaciones.
-#Para el Tiempo total de realización y el Número de pistas pedidas, los valores de p
-#son mayores que 0.05, lo que sugiere que no hay diferencias significativas entre las 
-#salas A y B en estos aspectos.
-#Estos resultados sugieren que hay diferencias significativas en el tiempo de realización
-#entre las salas A y B para las Habitaciones 2 y 3, pero no para la Habitación 1, mientras
-#que no hay diferencias significativas en el tiempo total de realización ni en el número de
-#pistas pedidas entre las salas A y B.
+"Como el p-valor = 0.6058338 > 0.05 = alpha, con los datos disponibles no se puede
+rechazar la hipótesis nula por lo que concluimos que no hay una diferencia significativa en los
+miembros de ambas salas"
 
 
 "5. Plantear una hipótesis en relación a los datos que pueda resolverse mediante un contraste,
 y hallar una resolución a la misma."
 # Las hipótesis del contraste son:
 #
-# - H0: El número de líderes en ambas habitaciones es igual.
-# - H1: El número de líderes en ambas habitaciones es diferente.
+# - H0: Las variables LE y SA son independientes.
+# - H1: Las variables LE y SA son dependientes.
 #
 # nivel de significación alpha=0.05
 
@@ -226,7 +271,8 @@ y hallar una resolución a la misma."
 lideres <- table(LE, SA)
 
 # Realizar el test de chi-cuadrado para la tabla
-test_lideres <- chisq.test(lideres_A)
+test_lideres <- chisq.test(lideres)
 test_lideres$p.value
 
-"Como p.valor = 0.8534187 < 0.05 = alpha, no se puede rechazar la hipótesis nula, concluyendo que no hay una diferencia significativa en el número de líderes entre la Sala A y la Sala B."
+"Como el p-valor = 0.8534187 > 0.05 = alpha, con los datos disponibles no se puede
+rechazar la hipótesis nula por lo que concluimos que las variables LE y SA son independientes"
